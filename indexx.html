@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<title>紙盒最大體積計算工具</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f4f6f9;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+    .container {
+        background: white;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        text-align: center;
+        width: 320px;
+    }
+    input {
+        width: 120px;
+        padding: 8px;
+        margin: 5px;
+        font-size: 14px;
+    }
+    button {
+        margin-top: 10px;
+        padding: 8px 15px;
+        border: none;
+        border-radius: 6px;
+        background-color: #4CAF50;
+        color: white;
+        cursor: pointer;
+    }
+    button:hover {
+        background-color: #45a049;
+    }
+    .result {
+        margin-top: 15px;
+        font-weight: bold;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>📦 紙盒最大體積計算</h2>
+    
+    <input type="number" id="length" placeholder="長度 (cm)">
+    <input type="number" id="width" placeholder="寬度 (cm)">
+    <br>
+    <button onclick="calculate()">計算</button>
+    <button onclick="resetForm()">重新開始</button>
+
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+function calculate() {
+    let L = parseFloat(document.getElementById("length").value);
+    let W = parseFloat(document.getElementById("width").value);
+
+    if (isNaN(L) || isNaN(W) || L <= 0 || W <= 0) {
+        document.getElementById("result").innerHTML = "請輸入有效的正數長度與寬度！";
+        return;
+    }
+
+    let x = (L + W - Math.sqrt(L*L - L*W + W*W)) / 6;
+    let volume = x * (L - 2*x) * (W - 2*x);
+
+    document.getElementById("result").innerHTML =
+        "最大體積為：" + volume.toFixed(4) + " 立方公分";
+}
+
+function resetForm() {
+    document.getElementById("length").value = "";
+    document.getElementById("width").value = "";
+    document.getElementById("result").innerHTML = "";
+}
+</script>
+
+</body>
+</html>
